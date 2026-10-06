@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Tuyba Umrah Packages"
+description = "A polished Umrah package discovery page inspired by Tuyba, with interactive trip filters, package cards, comparisons, and specialist contact options."
+version = "1.0.0"
+id = "artifacts/tuyba-packages"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21346
+
+[services.development]
+run = "pnpm --filter @workspace/tuyba-packages run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/tuyba-packages", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/tuyba-packages/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21346"
+BASE_PATH = "/"
